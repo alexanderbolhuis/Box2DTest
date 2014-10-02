@@ -124,11 +124,11 @@ int main(int argc,char** argv)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	window = SDL_CreateWindow("My Game Window",
+	window = SDL_CreateWindow("Box2D Test",
 	                          SDL_WINDOWPOS_UNDEFINED,
 	                          SDL_WINDOWPOS_UNDEFINED,
 	                          640, 480,
-	                          SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL);
+	                          0);
 
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
@@ -162,13 +162,13 @@ int main(int argc,char** argv)
 			}
 		}
 		display();
-		world->Step(1.0/30.0,8,3);	//update
+		world->Step(1.0/40.0,8,3);	//update
 		sdlTexture = SDL_CreateTextureFromSurface(renderer, screen);
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, sdlTexture, NULL, NULL);
 		SDL_RenderPresent(renderer);
-		if(1000.0/30>SDL_GetTicks()-start)
-			SDL_Delay(1000.0/30-(SDL_GetTicks()-start));
+		if(1000.0/40>SDL_GetTicks()-start)
+			SDL_Delay(1000.0/40-(SDL_GetTicks()-start));
 	}
 	SDL_Quit();
 }
