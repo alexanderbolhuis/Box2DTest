@@ -14,12 +14,14 @@ SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Texture* sdlTexture;
 
+// Teken pixel op surface
 void putPixel(SDL_Surface* dest,int x,int y,int r,int g,int b)
 {
 	if(x>=0 && x<dest->w && y>=0 && y<dest->h)
 		((Uint32*)dest->pixels)[y*dest->pitch/4+x]=SDL_MapRGB(dest->format,r,g,b);
 }
 
+// Swap functie
 void swapValue(int& a,int& b)
 {
 	int tmp=a;
@@ -27,6 +29,7 @@ void swapValue(int& a,int& b)
 	b=tmp;
 }
 
+// Teken lijn op surface
 void drawLine(SDL_Surface* dest,int x0,int y0,int x1,int y1)
 {
 	int tmp;
@@ -63,6 +66,7 @@ void drawLine(SDL_Surface* dest,int x0,int y0,int x1,int y1)
 	}
 }
 
+// Roteer rectangle
 void rotateTranslate(b2Vec2& vector,const b2Vec2& center,float angle)
 {
 	b2Vec2 tmp;
@@ -71,7 +75,7 @@ void rotateTranslate(b2Vec2& vector,const b2Vec2& center,float angle)
 	vector=tmp+center;
 }
 
-
+// Voeg nieuwe rectangle toe op muiscoordinaten
 b2Body* addRect(int x,int y,int w,int h,bool dyn=true)
 {
 	b2BodyDef bodydef;
@@ -90,19 +94,21 @@ b2Body* addRect(int x,int y,int w,int h,bool dyn=true)
 
 }
 
+// Teken vierkant
 void drawSquare(b2Vec2* points,b2Vec2 center,float angle)
 {
 	for(int i=0;i<4;i++)
 		drawLine(screen,points[i].x*M2P,points[i].y*M2P,points[(i+1)>3 ? 0 : (i+1)].x*M2P,points[(i+1)>3 ? 0 : (i+1)].y*M2P);
 }
 
-
+// Init wereld met grond
 void init()
 {
 	world=new b2World(b2Vec2(0.0,9.81));
 	addRect(WIDTH/2,HEIGHT-50,WIDTH,30,false);
 }
 
+// Teken alle rectangles
 void display()
 {
 	SDL_FillRect(screen,NULL,0);
